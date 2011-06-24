@@ -112,7 +112,7 @@
 	</fx:Script>
 	
 	<s:Group id="imageHolder" width="400" height="300" left="10" top="10">
-		<s:Image id="imgTarget" width="400" height="300" source="{imgSource}"/>	
+		<s:Image id="imgTarget" width="400" height="300" scaleMode="letterbox" source="{imgSource}"/>	
 	</s:Group>
 	
 	<s:Form width="300" right="10" top="10" bottom="10">
