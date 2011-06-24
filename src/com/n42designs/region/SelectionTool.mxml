@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<fx:Script>
+		<![CDATA[
+
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			private var _regions:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			public var imgSource:String = "";
+			
+			[Bindable]
+			public function get regions():ArrayCollection {
+				return _regions;
+			}
+			public function set regions(regions:ArrayCollection):void {
+				_regions = regions;
+			}
+			
+			protected function btnAddRegion_clickHandler(event:MouseEvent):void {
+				// create a new region object
+				var region:Region = new Region("Region " + (regions.length+1).toString(), 0, 0, 72, 72);
+				addRegion(region);
+			}
+			
+			protected function onChange(event:Event):void {
+				if (lstRegions.selectedIndex > -1) {
+					
+					// grab the region
+					var region:Region = lstRegions.selectedItem as Region;
+					
+					// update the properties
+					region.name = tiName.text;
+					region.width = sldWidth.value;
+					region.height = sldHeight.value;
+					region.x = sldX.value;
+					region.y = sldY.value;
+					
+					// enforce the maximums
+					var maxX:int = imgTarget.width-lstRegions.selectedItem.width;
+					var maxY:int = imgTarget.height-lstRegions.selectedItem.height;
+					
+					if (region.x > maxX) {
+						region.x = maxX;
+					}
+					
+					if (region.y > maxY) {
+						region.y = maxY;
+					}
+					
+					
+				}
+			}
+			
+			protected function btnDelete_clickHandler(event:MouseEvent):void {
+				if (lstRegions.selectedIndex > -1) {
+					
+					removeRegion(lstRegions.selectedItem as Region);
+					
+				}
+			}
+			
+			public function removeAll():void {
+				for each (var r:Region in regions) {
+					removeRegion(r);
+				}
+			}
+			
+			public function removeRegion(region:Region):void {
+				
+				// remove the display widget
+				for (var i:int = 0; i < imageHolder.numElements; i++) {
+					if (imageHolder.getElementAt(i) is RegionDisplay) {
+						if ((imageHolder.getElementAt(i) as RegionDisplay).region == region) {
+							imageHolder.removeElementAt(i);
+							break;
+						}
+					}
+				}
+				
+				// remove the region from the array
+				for (var y:int = 0; y < regions.length; y++) {
+					if (regions.getItemAt(y) == region) {
+						regions.removeItemAt(y);
+						break;
+					}
+				}
+				
+			}
+			
+			public function addRegion(region:Region):void {
+				
+				// add it to our array
+				regions.addItem(region);
+				
+				// select it
+				lstRegions.selectedIndex = regions.length - 1;
+				
+				// add a display widget for it
+				var regionDisplay:RegionDisplay = new RegionDisplay();
+				regionDisplay.region = region;
+				imageHolder.addElement(regionDisplay);
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Group id="imageHolder" width="400" height="300" left="10" top="10">
+		<s:Image id="imgTarget" width="400" height="300" source="{imgSource}"/>	
+	</s:Group>
+	
+	<s:Form width="300" right="10" top="10" bottom="10">
+		<s:FormItem width="100%" label="Name">
+			<s:TextInput id="tiName" text="{lstRegions.selectedItem.name}" change="onChange(event)" width="100%" enabled="{lstRegions.selectedIndex > -1}" />
+		</s:FormItem>
+		<s:FormItem width="100%" label="Width">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:HSlider id="sldWidth" width="100%" change="onChange(event)"
+					   maximum="{imgTarget.width}" minimum="1"
+					   value="{lstRegions.selectedItem.width}" enabled="{lstRegions.selectedIndex > -1}" />
+			<s:Label text="{sldWidth.value}" />
+		</s:FormItem>
+		<s:FormItem width="100%" label="Height">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:HSlider id="sldHeight" width="100%" change="onChange(event)"
+					   maximum="{imgTarget.height}" minimum="1"
+					   value="{lstRegions.selectedItem.height}" enabled="{lstRegions.selectedIndex > -1}" />
+			<s:Label text="{sldHeight.value}" />
+		</s:FormItem>
+		<s:FormItem width="100%" label="X">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:HSlider id="sldX" width="100%" change="onChange(event)"
+					   maximum="{imgTarget.width-lstRegions.selectedItem.width}" minimum="0"
+					   value="{lstRegions.selectedItem.x}" enabled="{lstRegions.selectedIndex > -1}" />
+			<s:Label text="{sldX.value}" />
+		</s:FormItem>
+		<s:FormItem width="100%" label="Y">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:HSlider id="sldY" width="100%" change="onChange(event)"
+					   maximum="{imgTarget.height-lstRegions.selectedItem.height}" minimum="0"
+					   value="{lstRegions.selectedItem.y}" enabled="{lstRegions.selectedIndex > -1}" />
+			<s:Label text="{sldY.value}" />
+		</s:FormItem>
+		<s:FormItem width="100%" label="Regions">
+			<s:List id="lstRegions" width="100%" dataProvider="{regions}" enabled="{regions.length > 0}" />
+		</s:FormItem>
+		<s:FormItem width="100%">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:Button id="btnAddRegion" label="Add Region" click="btnAddRegion_clickHandler(event)"/>
+			<s:Button id="btnDelete" label="Remove Region" click="btnDelete_clickHandler(event)" enabled="{lstRegions.selectedIndex > -1}" />
+		</s:FormItem>
+	</s:Form>
+	
+</s:HGroup>
