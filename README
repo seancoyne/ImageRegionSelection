@@ -2,4 +2,6 @@ ImageRegionSelection
 
 A simple proof of concept I created to allow selection of regions on an image.  Probably not useful to anyone other than me :)
 
+You can view a demo at http://seancoyne.github.com/ImageRegionSelection/
+
 http://www.apache.org/licenses/LICENSE-2.0.html
