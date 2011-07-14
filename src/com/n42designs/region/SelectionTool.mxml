@@ -12,6 +12,12 @@
 			private var _regions:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
+			private var _regionLabel:String = "Region";
+			
+			[Bindable]
+			private var _regionLabelPlural:String = "Regions";
+			
+			[Bindable]
 			public var imgSource:String = "";
 			
 			[Bindable]
@@ -20,6 +26,14 @@
 			}
 			public function set regions(regions:ArrayCollection):void {
 				_regions = regions;
+			}
+			
+			public function set regionLabel(label:String):void {
+				_regionLabel = label;	
+			}
+			
+			public function set regionLabelPlural(label:String):void {
+				_regionLabelPlural = label;	
 			}
 			
 			protected function btnAddRegion_clickHandler(event:MouseEvent):void {
@@ -155,15 +169,15 @@
 					   value="{lstRegions.selectedItem.y}" enabled="{lstRegions.selectedIndex > -1}" />
 			<s:Label text="{sldY.value}" />
 		</s:FormItem>
-		<s:FormItem width="100%" label="Regions">
+		<s:FormItem width="100%" label="{_regionLabelPlural}">
 			<s:List id="lstRegions" width="100%" dataProvider="{regions}" enabled="{regions.length > 0}" />
 		</s:FormItem>
 		<s:FormItem width="100%">
 			<s:layout>
 				<s:HorizontalLayout/>
 			</s:layout>
-			<s:Button id="btnAddRegion" label="Add Region" click="btnAddRegion_clickHandler(event)"/>
-			<s:Button id="btnDelete" label="Remove Region" click="btnDelete_clickHandler(event)" enabled="{lstRegions.selectedIndex > -1}" />
+			<s:Button id="btnAddRegion" label="Add {_regionLabel}" click="btnAddRegion_clickHandler(event)"/>
+			<s:Button id="btnDelete" label="Remove {_regionLabel}" click="btnDelete_clickHandler(event)" enabled="{lstRegions.selectedIndex > -1}" />
 		</s:FormItem>
 	</s:Form>
 	
