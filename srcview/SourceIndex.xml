@@ -8,6 +8,7 @@
 				<node label="history.js" url="source/html-template/history/history.js.txt"/>
 				<node icon="htmlIcon" label="historyFrame.html" url="source/html-template/history/historyFrame.html"/>
 			</node>
+			<node icon="htmlIcon" label="index.html" url="source/html-template/index.html"/>
 			<node icon="htmlIcon" label="index.template.html" url="source/html-template/index.template.html"/>
 			<node icon="swfIcon" label="playerProductInstall.swf" url="source/html-template/playerProductInstall.swf"/>
 			<node label="swfobject.js" url="source/html-template/swfobject.js.txt"/>
