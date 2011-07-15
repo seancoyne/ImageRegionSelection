@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group  xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" 
+		  width="400" 
+		  height="300">
+	
+	<fx:Script>
+		<![CDATA[
+
+			[Bindable]
+			public var imgSource:String = "";
+
+			[Bindable]
+			public var regionColor:String = "0x000000";
+			
+			[Bindable]
+			public var regionAlpha:Number = 0.33;
+			
+			[Bindable]
+			public var regionCaptionColor:String = "0xFFFFFF";
+			
+			public function removeAll():void {
+				// remove the display widgets
+				for (var i:int = 0; i < this.numElements; i++) {
+					if (this.getElementAt(i) is RegionDisplay) {
+						this.removeElementAt(i);
+					}
+				}
+			}
+			
+			public function removeRegion(region:Region):void {
+				
+				// remove the display widget
+				for (var i:int = 0; i < this.numElements; i++) {
+					if (this.getElementAt(i) is RegionDisplay) {
+						if ((this.getElementAt(i) as RegionDisplay).region == region) {
+							this.removeElementAt(i);
+							break;
+						}
+					}
+				}
+				
+			}
+			
+			public function addRegion(region:Region):void {
+				// add a display widget for it
+				var regionDisplay:RegionDisplay = new RegionDisplay();
+				regionDisplay.bgColor = regionColor;
+				regionDisplay.labelColor = regionCaptionColor;
+				regionDisplay.region = region;
+				this.addElement(regionDisplay);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Image id="imgTarget" width="400" height="300" scaleMode="letterbox" source="{imgSource}"/>	
+	
+</s:Group >
