@@ -66,6 +66,7 @@
 					region.height = sldHeight.value;
 					region.x = sldX.value;
 					region.y = sldY.value;
+					region.rotation = sldRotation.value;
 					
 					// enforce the maximums
 					var maxX:int = display.width-lstRegions.selectedItem.width;
@@ -78,7 +79,6 @@
 					if (region.y > maxY) {
 						region.y = maxY;
 					}
-					
 					
 				}
 			}
@@ -171,6 +171,15 @@
 					   maximum="{display.height-lstRegions.selectedItem.height}" minimum="0"
 					   value="{lstRegions.selectedItem.y}" enabled="{lstRegions.selectedIndex > -1}" />
 			<s:Label text="{sldY.value}" />
+		</s:FormItem>
+		<s:FormItem width="100%" label="Rotation">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<s:HSlider id="sldRotation" width="100%" change="onChange(event)"
+					   maximum="180" minimum="-180"
+					   value="{lstRegions.selectedItem.rotation}" enabled="{lstRegions.selectedIndex > -1}" />
+			<s:Label text="{sldRotation.value}" />
 		</s:FormItem>
 		<s:FormItem width="100%" label="{regionLabelPlural}">
 			<s:List id="lstRegions" width="100%" dataProvider="{_regions}" labelField="name" enabled="{_regions.length > 0}" />

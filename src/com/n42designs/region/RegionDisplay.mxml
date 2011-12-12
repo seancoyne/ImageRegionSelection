@@ -9,7 +9,8 @@
 		 label="{region.name}" 
 		 color="{labelColor}" 
 		 alpha="0.33" 
-		 chromeColor="{bgColor}">
+		 chromeColor="{bgColor}"
+		 rotation="{region.rotation}">
 
 	<fx:Script>
 		<![CDATA[
