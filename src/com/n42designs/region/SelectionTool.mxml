@@ -46,11 +46,12 @@
 			private function btnAddRegion_clickHandler(event:MouseEvent):void {
 				// create a new region object
 				var region:Region = new Region();
-				region.name = "Region " + (_regions.length+1).toString();
+				region.name = regionLabel + " " + (_regions.length+1).toString();
 				region.x = 0;
 				region.y = 0;
 				region.width = 72;
 				region.height = 72;
+				region.rotation = 0;
 				addRegion(region);
 			}
 			
