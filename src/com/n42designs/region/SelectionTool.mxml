@@ -2,7 +2,7 @@
 <s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
-		  xmlns:region="com.n42designs.region.*">
+		  xmlns:region="com.n42designs.region.*" mouseChildren="true">
 	
 	<fx:Script>
 		<![CDATA[
